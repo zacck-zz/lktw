@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
+var Twitter = require('twitter')
+
 
 
 class App extends Component {
