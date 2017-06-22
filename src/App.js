@@ -12,6 +12,10 @@ class App extends Component {
     this.state = {
       tweets: []
     };
+    this.focus = this.focus.bind(this);
+  }
+  focus() {
+
   }
   componentDidMount() {
     var tweetsRef = firebaseRef.child(`tweets`);
@@ -22,7 +26,8 @@ class App extends Component {
           ...this.state.tweets,
           data.val()
         ]
-      })
+      });
+
     })
   }
   render() {
@@ -44,6 +49,11 @@ class App extends Component {
     return (
       <div className="App">
         {renderTweets()}
+        <div>
+          <input
+          type="hidden"
+          ref={(input) => { this.textInput = input; }} />
+        </div>
       </div>
     );
   }
