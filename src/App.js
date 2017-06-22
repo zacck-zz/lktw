@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import './App.css';
 import firebase, {firebaseRef} from './firebase.js'
 
@@ -20,16 +21,17 @@ class App extends Component {
     this.textInput.focus();
   }
   componentDidMount() {
+    const elem = ReactDOM.findDOMNode(this.refs.scrollBox);
     var tweetsRef = firebaseRef.child(`tweets`);
 
     tweetsRef.on('child_added', (data) => {
       this.setState({
         tweets:  [
           this.state.tweets,
-          data.val()
+          data.val() + ' '
         ]
       });
-      window.scrollTo(0, 0);
+      elem.scrollIntoView();
     })
   }
   render() {
@@ -51,10 +53,11 @@ class App extends Component {
     return (
       <div className="App">
         {renderTweets()}
-        <div className="twtlst">
-          <input
-          type="hidden"
-          ref={(input) => { this.textInput = input; }} />
+        <div
+          className="twtlst"
+          ref="scrollBox"
+          >
+          <p className="req">Tweet Your Tribute @AfrikanerApokolips Shrine #AAShrine </p>
         </div>
       </div>
     );
