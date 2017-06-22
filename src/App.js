@@ -10,24 +10,26 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tweets: []
+      tweets: [],
+      scrollTop: 0,
     };
     this.focus = this.focus.bind(this);
   }
   focus() {
-
+    // Explicitly focus the text input using the raw DOM API
+    this.textInput.focus();
   }
   componentDidMount() {
     var tweetsRef = firebaseRef.child(`tweets`);
 
     tweetsRef.on('child_added', (data) => {
       this.setState({
-        tweets: [
-          ...this.state.tweets,
+        tweets:  [
+          this.state.tweets,
           data.val()
         ]
       });
-
+      window.scrollTo(0, 0);
     })
   }
   render() {
@@ -49,7 +51,7 @@ class App extends Component {
     return (
       <div className="App">
         {renderTweets()}
-        <div>
+        <div className="twtlst">
           <input
           type="hidden"
           ref={(input) => { this.textInput = input; }} />
