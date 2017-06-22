@@ -45,7 +45,7 @@ class App extends Component {
       return tweets.map((t) => {
         return(
           <div>
-            <p>{t}</p>
+            <p className="tw">{t}</p>
           </div>
         )
       })
